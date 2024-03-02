@@ -1,0 +1,41 @@
+{
+    "manifest_version": 3,
+    "name": "My Trello Extensions",
+    "description": "Kyle Extensions",
+    "version": "1.0.0",
+    "minimum_chrome_version": "93",
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "background": { 
+        "service_worker": "background.bundle.js" ,
+        "type": "module"
+    },
+    "host_permissions": [
+        "https://trello.com/*"
+    ],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'"
+    },
+    "content_scripts": [
+        {
+          "matches": ["https://trello.com/*"],
+          "js": [
+               "contentScript.bundle.js"
+          ]
+        },
+        {
+            "matches": ["https://trello.com/b/*"],
+            "js": [
+                "App.bundle.js"
+            ]
+        }
+      ]
+    ,
+    "web_accessible_resources": [{ 
+        "resources": ["authorize.html","popup.html","./@libs/trello.min.js"],
+        "matches": ["<all_urls>"]
+      }],
+      "permissions": ["activeTab", "tabs", "storage",   "scripting", "webNavigation"]
+     
+}
